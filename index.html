@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be Our Guest Bites</title>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #C8A287;
+            --accent: #E3BB88;
+            --bg-light: #FCF3E8;
+            --bg-medium: #F2E6D8;
+            --text-dark: #5D4037;
+            --text-light: #FCF3E8;
+            --green: #7A9E7E;
+            --blue: #8EABC8;
+            --red: #D9827C;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .pixel-art {
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+        
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header and Navigation */
+        header {
+            background-color: var(--primary);
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--text-light);
+            letter-spacing: 2px;
+            text-decoration: none;
+            position: relative;
+            text-shadow: 2px 2px 0px var(--text-dark);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+        
+        nav ul li a:hover {
+            background-color: var(--accent);
+            color: var(--text-dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            background-color: var(--green);
+        }
+        
+        .day-night-cycle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #8EABC8, #C8E6F5);
+            transition: background 10s ease;
+            z-index: 1;
+        }
+        
+        .landscape {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 70%;
+            z-index: 2;
+        }
+        
+        .forest {
+            position: absolute;
+            bottom: 10%;
+            width: 100%;
+            height: 30%;
+            z-index: 3;
+        }
+        
+        .tree {
+            position: absolute;
+            bottom: 0;
+            width: 40px;
+            height: 80px;
+        }
+        
+        .tree:nth-child(1) { left: 5%; }
+        .tree:nth-child(2) { left: 15%; }
+        .tree:nth-child(3) { left: 25%; }
+        .tree:nth-child(4) { left: 35%; }
+        .tree:nth-child(5) { left: 45%; }
+        .tree:nth-child(6) { left: 55%; }
+        .tree:nth-child(7) { left: 65%; }
+        .tree:nth-child(8) { left: 75%; }
+        .tree:nth-child(9) { left: 85%; }
+        .tree:nth-child(10) { left: 95%; }
+        
+        .tree-trunk {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 30px;
+            background-color: #8C6E5D;
+        }
+        
+        .tree-top {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: var(--green);
+            border-radius: 50%;
+        }
+        
+        
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20%;
+            background-color: var(--green);
+            z-index: 3;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .clouds {
+            position: absolute;
+            top: 20%;
+            width: 100%;
+            height: 20%;
+            z-index: 2;
+        }
+        
+        .cloud {
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            animation: float linear infinite;
+        }
+        
+        .cloud:nth-child(1) {
+            top: 10%;
+            left: -60px;
+            animation-duration: 60s;
+        }
+        
+        .cloud:nth-child(2) {
+            top: 30%;
+            left: -60px;
+            animation-duration: 90s;
+            width: 80px;
+        }
+        
+        .cloud:nth-child(3) {
+            top: 50%;
+            left: -60px;
+            animation-duration: 75s;
+            width: 70px;
+        }
+        
+        @keyframes float {
+            from { left: -60px; }
+            to { left: 100%; }
+        }
+        
+        .hero-text {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 6;
+            width: 80%;
+            background-color: rgba(252, 243, 232, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 4px solid var(--primary);
+        }
+        
+        .hero-text h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .hero-text p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid var(--text-dark);
+        }
+        
+        .btn:hover {
+            background-color: var(--accent);
+            color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+        
+        /* Content Sections */
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: var(--bg-medium);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border: 3px solid var(--primary);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            height: 150px;
+            background-color: var(--accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            color: var(--primary);
+        }
+        
+        .feature-content {
+            padding: 20px;
+        }
+        
+        .feature-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            height: 200px;
+            background-color: var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-light);
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            background-color: var(--accent);
+            color: var(--text-dark);
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid var(--text-dark);
+            background-color: var(--bg-light);
+            font-size: 16px;
+            color: var(--text-dark);
+        }
+        
+        button[type="submit"] {
+            background-color: var(--accent);
+            color: var(--text-dark);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid var(--text-dark);
+        }
+        
+        button[type="submit"]:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--text-light);
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .social-icons {
+            margin: 20px 0;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin: 0 10px;
+            line-height: 40px;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent);
+            color: var(--text-dark);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero {
+                height: 400px;
+            }
+            
+            .hero-text {
+                width: 90%;
+            }
+            
+            .cottage {
+                transform: translateX(-50%) scale(0.8);
+            }
+        }
+        
+        /* Pixel cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            z-index: 9999;
+            pointer-events: none;
+            transition: transform 0.1s ease;
+            display: none;
+        }
+        
+        .day-time {
+            background: linear-gradient(to bottom, #8EABC8, #C8E6F5);
+        }
+        
+        .night-time {
+            background: linear-gradient(to bottom, #2C3E50, #34495E);
+        }
+
+        .image-containerCastle {
+            position: relative;
+            width: 100%; /* Set container width */
+            height: 100%; /* Set container height */
+            perspective: 10000px; /* Adds depth for 3D transform effects */
+        }
+
+        .image-containerCastle {
+            position: absolute; /* Allows precise positioning */
+            top: 47%; /* Controls vertical position (Y-axis) */
+            left: 50%; /* Controls horizontal position (X-axis) */
+            transform: translate(-50%, -50%) /* Center image in container */
+                    translate3d(var(--x-pos, 0), var(--y-pos, 0), var(--z-pos, 0)) /* X, Y, and Z positioning */
+                    scale(var(--zoom, 2.5)); /* Zoom with scaling */
+            width: var(--width, 300px); /* Width of the image */
+            height: var(--height, 300px); /* Height of the image */
+            transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease; /* Smooth transitions for changes */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="wrapper header-container">
+            <a href="#" class="logo">Be Our Guest Bites</a>
+            <nav>
+                <ul>
+                    <li><a href="#adventure">Recipes</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="day-night-cycle"></div>
+        
+        <div class="clouds">
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+        </div>
+
+
+        <div class="landscape">
+            <div class="mountains"></div>
+            
+            <div class="ground"></div>
+            
+            <div class="forest">
+                <div class="tree">
+                    <div class="tree-trunk"></div>
+                    <div class="tree-top"></div>
+                </div>
+                <div class="tree">
+                    <div class="tree-trunk"></div>
+                    <div class="tree-top"></div>
+                </div>
+                <div class="tree">
+                    <div class="tree-trunk"></div>
+                    <div class="tree-top"></div>
+                </div>
+                <div class="tree">
+                    <div class="tree-trunk"></div>
+                    <div class="tree-top"></div>
+                </div>
+                <div class="tree">
+                    <div class="tree-trunk"></div>
+                    <div class="tree-top"></div>
+                </div>
+                <div class="tree">
+                    <div class="tree-trunk"></div>
+                    <div class="tree-top"></div>
+                </div>
+                <div class="tree">
+                    <div class="tree-trunk"></div>
+                    <div class="tree-top"></div>
+                </div>
+                <div class="tree">
+                    <div class="tree-trunk"></div>
+                    <div class="tree-top"></div>
+                </div>
+                <div class="tree">
+                    <div class="tree-trunk"></div>
+                    <div class="tree-top"></div>
+                </div>
+                <div class="tree">
+                    <div class="tree-trunk"></div>
+                    <div class="tree-top"></div>
+                </div>
+            </div>
+            
+            <div class="cottage">
+                <div class="cottage-base"></div>
+                <div class="cottage-roof"></div>
+                <div class="cottage-door"></div>
+                <div class="cottage-window window-left"></div>
+                <div class="cottage-window window-right"></div>
+                
+            </div>
+            
+            <div class="path"></div>
+
+            <div class="image-containerCastle">
+                <img src="/images/castle.png" alt="Castle" class="image">
+            </div>
+
+
+
+
+
+
+            
+            <div class="character">
+                <div class="character-body"></div>
+                <div class="character-head"></div>
+            </div>
+        </div>
+        
+        
+        <div class="hero-text">
+            <h1>Be Our Guest Bites</h1>
+            <p>Be our guest! Pull up a chair, grab your whisk, and let's cook up some happily ever afters together!</p>
+            <a href="#adventure" class="btn">Be Our Guest!</a>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section id="features">
+        <div class="wrapper">
+            <h2 class="section-title"> Choose Your Princess: A Royal Feast Awaits!</h2>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <img src="images/ambersdsd.jpg" alt="amberPic" class="image">
+                    <div class="feature-content">
+                        <h3 class="feature-title">Amber’s Recipes</h3>
+                        <p>Step into Amber’s enchanted kitchen, where every dish is made with a sprinkle of magic and a dash of love!Step into Amber’s enchanted kitchen, where every dish is made with a sprinkle of magic and a dash of love!</p>
+                    </div>
+                </div>
+                <style>
+                    .image-container {
+                        text-align: center;
+                        margin: 15px auto;
+                        max-width: 80%;
+                    }
+            
+                    .image {
+                        width: 100%;
+                        height: auto;
+                    }
+                </style>
+                
+                <div class="feature-card">
+                    <img src="images/hunter.jpg" alt="hunterspic" class="image">
+                    <div class="feature-content">
+                        <h3 class="feature-title">Hunter’s Recipes</h3>
+                        <p>Step into Hunter’s enchanted kitchen, where every dish is crafted with a touch of Disney magic! Whether you're craving a hearty meal fit for a royal feast or a whimsical treat straight out of your favorite Disney tale, Hunter’s recipes bring the wonder of Disney to your table. </p>
+                    </div>
+                </div>
+
+                <style>
+                    .image-container {
+                        text-align: center;
+                        margin: 15px auto;
+                        max-width: 80%;
+                    }
+            
+                    .image {
+                        width: 100%;
+                        height: auto;
+                    }
+                </style>
+                
+                
+            </div>
+        </div>
+    </section>
+    
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="wrapper">
+            <p>© 2025 Be Our Guest Bites rights reserved.</p>
+            
+
+        </div>
+    </footer>
+    
+    <div class="custom-cursor pixel-art"></div>
+    
+    <script>
+        // Day-night cycle
+        const dayNightCycle = document.querySelector('.day-night-cycle');
+        
+        function updateDayNightCycle() {
+            const now = new Date();
+            const hours = now.getHours();
+            
+            // 6am to 6pm is daytime
+            if (hours >= 6 && hours < 18) {
+                dayNightCycle.classList.add('day-time');
+                dayNightCycle.classList.remove('night-time');
+            } else {
+                dayNightCycle.classList.add('night-time');
+                dayNightCycle.classList.remove('day-time');
+            }
+        }
+        
+        updateDayNightCycle();
+        setInterval(updateDayNightCycle, 60000); // Update every minute
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Pixel cursor
+        const cursor = document.querySelector('.custom-cursor');
+        const links = document.querySelectorAll('a, button');
+        
+        document.addEventListener('mousemove', e => {
+            cursor.style.display = 'block';
+            // Snap to a grid of 5 pixels to create a pixelated movement effect
+            const x = Math.floor(e.clientX / 5) * 5;
+            const y = Math.floor(e.clientY / 5) * 5;
+            cursor.style.transform = `translate(${x}px, ${y}px)`;
+        });
+        
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.style.transform += ' scale(1.5)';
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', '');
+            });
+        });
+    </script>
+</body>
+</html>
